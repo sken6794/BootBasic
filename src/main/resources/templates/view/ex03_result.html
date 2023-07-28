@@ -1,0 +1,17 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+<meta charset="UTF-8">
+<title>Insert title here</title>
+</head>
+<body>
+	
+	타임리프의 link 구문 @{경로(key=value, key=value)} => 쿼리스트링 형식으로 넘어간다
+	<ul>
+		<li th:each="vo : ${list}">
+			<a th:href="@{/result(sno=${vo.sno},first=${vo.first})}">[[${vo.first}]]</a>
+		</li>
+	</ul>
+	
+</body>
+</html>

@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+<meta charset="UTF-8">
+<title>Insert title here</title>
+</head>
+<body>
+	
+	<h3>메모 목록</h3>
+	
+		<table>
+			<thead>
+				<td>번호</td>
+				<td>메모</td>
+				<td>연락처</td>
+				<td>공개여부</td>
+				<td>비고</td>
+			</thead>
+			<tr th:each="vo : ${list}">
+				<form action="/memo/memoDelete" method="post" id="delfrm">
+				<input type="hidden" name="pw" th:value="${vo.pw}"/>
+				<input type="hidden" name="mno" th:value="${vo.mno}"/>
+				<td>[[${vo.mno}]]</td>
+				<td th:unless="${vo.secret == 'y'}">비밀글 처리</td>
+				<td th:if="${vo.secret == 'y'}">[[${vo.memo}]]</td>
+				<td th:if="${vo.secret == 'y'}">[[${vo.phone}]]</td>
+				<td th:if="${vo.secret == 'y'}">[[${vo.secret}]]</td>
+				<!--<td><button type="button" th:onclick="|location.href='@{memoDelete(mno=${vo.mno})}'|">삭제</button></td>-->
+				<td><button type="button" onclick="pwcheck()">삭제</button></td>
+				</form>
+			</tr>
+	</table>
+	
+	<a href="memoWrite">메모쓰기</a>
+	<script>
+		
+		function pwcheck(){
+			//인풋태그
+			var inp = event.target.parentElement.parentElement.firstElementChild;
+			var realpw = inp.nextElementSibling.value;
+			//console.log(realpw)
+			//console.log(event.target.parentElement.parentElement.firstElementChild);
+			
+			var pw = prompt("비밀번호 입력");
+			if(pw === realpw){
+				alert("일치")
+				inp.submit();
+			} else {
+				alert("불일치")
+			}
+			
+		}
+	</script>
+</body>
+</html>

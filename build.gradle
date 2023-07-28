@@ -1,0 +1,58 @@
+plugins {
+	id 'java'
+	id 'war'
+	id 'org.springframework.boot' version '2.7.14'
+	id 'io.spring.dependency-management' version '1.0.15.RELEASE'
+}
+
+group = 'com.simple'
+version = '0.0.1-SNAPSHOT'
+
+java {
+	sourceCompatibility = '11'
+}
+
+configurations {
+	compileOnly {
+		extendsFrom annotationProcessor
+	}
+}
+
+repositories {
+	mavenCentral()
+}
+
+dependencies {
+	implementation 'org.springframework.boot:spring-boot-starter-web'
+	compileOnly 'org.projectlombok:lombok'
+	developmentOnly 'org.springframework.boot:spring-boot-devtools'
+	runtimeOnly 'com.mysql:mysql-connector-j'
+	annotationProcessor 'org.projectlombok:lombok'
+	providedRuntime 'org.springframework.boot:spring-boot-starter-tomcat'
+	testImplementation 'org.springframework.boot:spring-boot-starter-test'
+	// https://mvnrepository.com/artifact/org.apache.tomcat.embed/tomcat-embed-jasper
+	//jsp를 뷰로 사용하려면 버전을 프로젝트에 빌드되어 있는 톰캣 버전과 맞춘다
+	//버전명시를 안하면 자동으로 버전을 맞추게 된다
+	//implementation group: 'org.apache.tomcat.embed', name: 'tomcat-embed-jasper', version: '9.0.78'
+	// https://mvnrepository.com/artifact/javax.servlet/jstl
+	//implementation group: 'javax.servlet', name: 'jstl', version: '1.2'
+	// https://mvnrepository.com/artifact/org.springframework.boot/spring-boot-starter-thymeleaf
+	//제일 뒤에 붙는 버전을 지우면 현재 스프링 버전에 맞는 버전으로 맞춰준다.
+	//타임리프를 뷰로 사용하기위한 gradle 추가
+	implementation 'org.springframework.boot:spring-boot-starter-thymeleaf'
+	//유효성 검사 gradle
+	// https://mvnrepository.com/artifact/org.springframework.boot/spring-boot-starter-validation
+	implementation 'org.springframework.boot:spring-boot-starter-validation'
+	
+	// https://mvnrepository.com/artifact/org.mybatis.spring.boot/mybatis-spring-boot-starter
+	//마이바티스 + (커넥터도 필요함 위에 있음)
+	implementation 'org.mybatis.spring.boot:mybatis-spring-boot-starter:2.2.2'
+	
+	//jdbc 로그 기능
+	implementation 'org.bgee.log4jdbc-log4j2:log4jdbc-log4j2-jdbc4.1:1.16'
+	
+}
+
+tasks.named('test') {
+	useJUnitPlatform()
+}
