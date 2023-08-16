@@ -6,5 +6,73 @@
 </head>
 <body>
 	타임리프 뷰
+	
+	
+	<button id="getData">get방식</button>
+	
+	<button id="getJSON">post방식</button>
+	
+	
+	<button id="getEx1">get방식 연습</button>
+	
+	<button id="getEx2">post방식 연습</button>
+	
+	
+	
+	
+	<script>
+		///////
+		let getData = document.getElementById("getData");
+		getData.onclick=()=>{
+			fetch("/getData?sno=1&first=홍길동")
+			.then(re=> re.json())
+			.then(t=>console.log(t))
+		}
+		////////
+		let getJSON = document.getElementById("getJSON");
+		getJSON.onclick=()=>{
+			fetch("/getJSON", {
+				method : "post",
+				headers : {
+					"Content-Type" : "application/json",
+				},
+				body : JSON.stringify({
+									    "sno": 4,
+									    "first": "나",
+									    "last": "길동",
+									    "regdate": "2023-08-01T12:41:01.7812717"})
+										
+			})
+			.then(re=>re.json())
+			.then(t=>console.log(t))
+		
+		}
+		
+		let getEx1 = document.getElementById("getEx1");
+		getEx1.onclick=()=>{
+			fetch("/api/v1/getData?num=1&name=홍길동")
+			.then(re=> re.json())
+			.then(t=>console.log(t))
+		}
+		
+		let getEx2 = document.getElementById("getEx2");
+		getEx2.onclick=()=>{
+			fetch("/api/v1/getInfo", {
+				method : "post",
+				headers : {
+					"Content-Type" : "application/json",
+				},
+				body : JSON.stringify({
+									    "num":1,
+									    "name": "홍길"})
+										
+			})
+			.then(re=>re.json())
+			.then(t=>console.log(t))
+		
+		}
+		
+		
+	</script>
 </body>
 </html>
